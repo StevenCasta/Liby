@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+
+  <div class="barra_navegacion">
+    <nav>
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+      </a>
+      <form class="barra_busqueda" method="POST" action="{{ url_for('buscar') }}">
+        <input type="text" name="entrada" placeholder="Buscar...">
+        <input type="image" src="{{ url_for('static', filename = './images/lupita.png')}}" class="search_button">
+      </form>
+      {% if logueado == "si" %}
+          <a href="{{url_for('carrito')}}">
+            <img style="width: 50px;" src="{{ url_for('static', filename = './images/carrito.png')}}" alt="Carrito de compras">
+          </a>
+      {% endif %}
+      <a href="./Login">
+        <img src="{{ url_for('static', filename = './images/user-icon.png')}}" alt="Acceso a perfil" class="logo2">
+      </a>
+    </nav>
+</div>
+<hr>
+  <div class="lomasvendido">
+    <div class="nombreseccion">
+      {% if valor == "__recomendar__" %}
+        <p>No has ingresado un termino a buscar, Tal vez te pueda interesar</p>
+      {% else %}
+        <p>Resultados para "{{valor}}"</p>
+      {% endif %}
+    </div>
+    <section class="carrusel">
+      {% for e in libros %}
+          <div class="contenedorcarrusel" id="item6">
+            <div class="item">
+              <a href="{{ url_for('informacionLibro', codigo = e.ISSN) }}">
+                <img class="imagenitem" src="../static/images/portadalibro{{e.ISSN}}.png" alt="Portada {{e.titulo}}">
+                <div class="detallesitem">
+                    <div class="accionesitem">
+                    </div>
+                    <p class="tituloitem">{{e.titulo}}</p>
+                    <p class="subtituloitem">$ {{e.precio}}</p>
+                </div>
+              </a>
+            </div>
+          </div>
+      {% endfor %}
+    </section>
+  </div>
+
+  <footer class="footer">
+    <p>Términos de uso</p>
+    <p>Declaración de privacidad</p>
+    <p>Centro de Ayuda</p>
+</footer>
+
+</body>
+</html>

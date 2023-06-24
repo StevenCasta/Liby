@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+    <div class="barra_navegacion">
+        <nav>
+          <a href="./">
+            <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+          </a>
+        </nav>
+    </div>
+    <hr>
+    <section class="login">
+        <section class="login__container">
+            <h2>Registrarse</h2>
+            <form class="login__container--form" method="POST" action="{{ url_for('register_check') }}">
+                <input class="input" type="text" name="nombre" placeholder="Nombre...">
+                <input class="input" type="text" name="apellido" placeholder="Apellido...">
+                <input class="input" type="date" name="fecha" placeholder="Fecha Nacimiento...">
+                <input class="input" type="text" name="correo" placeholder="Correo...">
+                <input class="input" type="text" name="usuario" placeholder="Usuario...">
+                <input class="input" type="password" name="clave" placeholder="Contraseña...">
+                <input class="input" type="text" name="documento" placeholder="Documento de identidad...">
+                <nav class="barra_navegacion2">
+                    <input type="radio" id="contactChoice1" name="tipo" value="TI" style="margin: 0px 20px;margin-bottom: 50px;">
+                    <label for="contactChoice1">T.I.</label>
+                
+                    <input type="radio" id="contactChoice2" name="tipo" value="CC" style="margin: 0px 20px;">
+                    <label for="contactChoice2">C.C.</label>
+                
+                    <input type="radio" id="contactChoice3" name="tipo" value="CE" style="margin: 0px 20px;">
+                    <label for="contactChoice3">C.E.</label>
+                </nav>
+                <nav class="barra_navegacion2">
+                    <label for="termino">Al continuar acepta los Terminos y Condiciones</label>
+                    <a class="login__button" href="#" style="margin-bottom: 30px;">T&C</a>
+                </nav>
+                <div class="opciones">
+                    <div>
+                        <input type="submit" value="Completar registro" class="login__button">
+                    </div>
+                    <div>
+                        <a class="back__button" href="./">Volver</a>
+                    </div>
+                </div>
+                <hr>
+                <a class="back__button" href="./Login">Acceder con mi cuenta</a>
+            </form>
+        </section>
+    </section>
+    <footer class="footer">
+        <a href="/">Términos de uso</a>
+        <a href="/">Declaración de privacidad</a>
+        <a href="/">Centro de Ayuda</a>
+    </footer>
+</body>
+</html>

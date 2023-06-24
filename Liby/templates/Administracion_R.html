@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="{{ url_for('logout') }}" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="{{ url_for('admonInventario') }}"><br><br>Administrar Inventario</a></li>
+                    <li><a href="{{ url_for('admonRP') }}" style="color:#ff9d00;"><br><br>Administrar Reservas y Pagos</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <table class="tablita">
+                    <thead style="background: blue;opacity: 0.8;">
+                        <tr>
+                            <td>ID</td>
+                            <td>Fecha</td>
+                            <td>Articulos</td>
+                            <td>Valor a Pagar</td>
+                            <td>Operaciones</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reserva in reservas %}
+                            <tr>
+                                <td>{{ reserva._id }}</td>
+                                <td>{{ reserva.diar }} - {{reserva.mesr}} - {{reserva.anor}}</td>
+                                <td>
+                                    {% for a in reserva.articulos %}
+                                        {{ a[0] }}
+                                    {% endfor %}
+                                </td>
+                                <td>{{ reserva.valortotal }}</td>
+                                <td>
+                                    <a href="{{ url_for('informacionReserva',id=reserva._id) }}">Ver</a>
+                                    <a href="{{ url_for('eliminarReserva',id=reserva._id) }}">Eliminar</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+        </div>
+</html>

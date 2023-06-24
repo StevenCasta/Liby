@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+
+    <div class="barra_navegacion">
+        <nav>
+        <a href="{{ url_for('index') }}">
+            <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+        </a>
+        <form class="barra_busqueda" method="POST" action="{{ url_for('buscar') }}">
+            <input type="text" name="entrada" placeholder="Buscar...">
+            <input type="image" src="{{ url_for('static', filename = './images/lupita.png')}}" class="search_button">
+        </form>
+        <a href="./Login">
+            <img src="{{ url_for('static', filename = './images/user-icon.png')}}" alt="Acceso a perfil" class="logo2">
+        </a>
+        </nav>
+    </div>
+    <hr>
+    <section class="window2">
+        <div>
+            {% if articles == [] %}
+            <h1 style="margin-top: 180px;">Actualmente no tienes articulos en el carrito</h1>
+            {% else %}
+            <h1>Mostrando Articulos en carrito de compras</h1>
+            <hr style="color: black;">
+            {% endif %}
+        </div>
+        <section class="carrusel3">
+            {% for a in articles %}
+                <div style="padding-left: 5px;">
+                    <p>{{ a[0].titulo }}</p>
+                    <p style="font-size: 10px;">{{ a[0].editorial }}</p>
+                    <p style="font-size: 10px;">${{a[0].precio * a[1]}}</p>
+                </div>
+                <div style="display: grid;grid-template-columns: repeat(1, 1fr);width: 40%;justify-items: center;padding: 10px 0px;">
+                    {% if a[1] == 30 %}
+                    <label class="back__button3">+</label>
+                    {% else %}
+                    <a href="{{url_for('aumentarCantidad',id = a[0]._id)}}" class="back__button3">+</a>
+                    {% endif %}
+                    <label>{{ a[1] }}</label>
+                    {% if a[1] == 0 %}
+                    <label class="back__button3">-</label>
+                    {% else %}
+                    <a href="{{url_for('disminuirCantidad',id = a[0]._id)}}" class="back__button3">-</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>
+        <div>
+            {% if articles != [] %}
+            <hr style="color: black;">
+            <div style="margin-top: 30px;margin-left: 35%;">
+                <a href="{{url_for('resumenCompra')}}" class="back__button2">Continuar</a>
+                <a href="{{url_for('vaciarCarrito')}}" class="back__button2">Vaciar carrito</a>
+            </div>
+            {% endif %}
+        </div>
+    </section>
+
+  <footer class="footer">
+    <p>Términos de uso</p>
+    <p>Declaración de privacidad</p>
+    <p>Centro de Ayuda</p>
+</footer>
+
+</body>
+</html>

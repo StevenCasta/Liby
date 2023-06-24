@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+
+  <div class="barra_navegacion">
+    <nav>
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+      </a>
+      <form class="barra_busqueda" method="POST" action="{{ url_for('buscar') }}">
+        <input type="text" name="entrada" placeholder="Buscar...">
+        <input type="image" src="{{ url_for('static', filename = './images/lupita.png')}}" class="search_button">
+      </form>
+      {% if logueado == "si" %}
+          <a href="{{url_for('carrito')}}">
+            <img style="width: 50px;" src="{{ url_for('static', filename = './images/carrito.png')}}" alt="Carrito de compras">
+          </a>
+      {% endif %}
+      <a href="{{ url_for('login') }}">
+        <img src="{{ url_for('static', filename = './images/user-icon.png')}}" alt="Acceso a perfil" class="logo2">
+      </a>
+    </nav>
+    </div>
+    <hr>
+    <div class="vistalibro">
+        <div class="cabezalibro">
+            <div class="imagencabez">
+                <img class="imagencabeza" src="../static/images/portadalibro{{informacion.ISSN}}.png" alt="Portada Libro">
+            </div>
+            <div class="detallescabeza">
+                <h1>{{ titulo_pagina }}</h1>
+                <p>{{ informacion.autor }}</p>
+                <p>{{ informacion.editorial }}</p>
+                <h2 style="margin-top: 60px;">$ {{ informacion.precio }}</h2>
+                {% if cliente == "si" %}
+                  {% if fav == "si" %}
+                  <a href="{{url_for('eliminarFavorito',id = idfav,cod = informacion.ISSN)}}">
+                    <img style="width: 50px;background: white;border-radius: 100%;" src="../static/images/quitar_favorito.png" alt="favorito">
+                  </a>
+                  {% endif %}
+                  {% if fav == "no" %}
+                  <a href="{{url_for('agregarFavorito',id = informacion._id,cod = informacion.ISSN)}}">
+                    <img style="width: 50px;background: white;border-radius: 100%;" src="../static/images/agregar_favorito.png" alt="favorito">
+                  </a>
+                  {% endif %}
+                  {% if added == "si" %}
+                  <a href="{{url_for('eliminarCarrito',id = informacion._id, cod = informacion.ISSN)}}">
+                    <img style="width: 50px;background: white;border-radius: 100%;" src="../static/images/quitar_producto.png" alt="favorito">
+                  </a>
+                  {% endif%}
+                  {% if added == "no" %}
+                  <a href="{{url_for('agregarCarrito',id = informacion._id, cod = informacion.ISSN)}}">
+                    <img style="width: 50px;background: white;border-radius: 100%;" src="../static/images/agregar_producto.png" alt="favorito">
+                  </a>
+                  {% endif%}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <hr style="width: 80%;">
+    <div style="width: 90%;margin: auto;color: white;">
+        <h1 style="margin-left: 5%;">Mas detalles</h1>
+        <div style="display: grid;grid-template-columns: repeat(2, 1fr);margin-left:20%;width: 50%;;">
+            <div>
+                <p>Nombre del libro:</p>
+            </div>
+            <div>
+                <p>{{ informacion.titulo }}</p>
+            </div>
+            <div>
+                <p>Autor del libro:</p>
+            </div>
+            <div>
+                <p>{{ informacion.autor }}</p>
+            </div>
+            <div>
+              <p>Fecha de Publicacion:</p>
+            </div>
+            <div>
+                <p>{{ informacion.diapublicacion }} de {{ informacion.mespublicacion }} de {{ informacion.anopublicacion }}</p>
+            </div>
+            <div>
+              <p>Genero:</p>
+            </div>
+            <div>
+                <p>{{ informacion.genero }}</p>
+            </div>
+            <div>
+              <p>Cantidad de Páginas:</p>
+            </div>
+            <div>
+                <p>{{ informacion.paginas }}</p>
+            </div>  
+            <div>
+              <p>Editorial:</p>
+            </div>
+            <div>
+                <p>{{ informacion.editorial }}</p>
+            </div>
+            <div>
+              <p>Idioma:</p>
+            </div>
+            <div>
+                <p>{{ informacion.idioma }}</p>
+            </div>
+            <div>
+              <p>Estado:</p>
+            </div>
+            <div>
+                <p>{{ informacion.estado }}</p>
+            </div>
+            <div>
+              <p>Disponibilidad:</p>
+            </div>
+            <div>
+                <p>{{ informacion.disponibilidad }}</p>
+            </div>
+            <div>
+              <p>Copias restantes:</p>
+            </div>
+            <div>
+                <p>{{ informacion.cantidad }}</p>
+            </div>
+            <div>
+              <p>ISSN:</p>
+            </div>
+            <div>
+                <p>{{ informacion.ISSN }}</p>
+            </div>    
+        </div>
+    </div>
+    <hr style="width: 80%;margin-bottom: 80px;">
+    <div class="lomasgustado">
+        <div class="nombreseccion">
+          {% if cantidad != 0 %}
+          <h3>Te recomendamos</h3>
+          {% endif %}
+        </div>
+        {% if cantidad == 1 %}
+        <section class="carrusel">
+          {% for j in [0] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+        {% if cantidad == 2 %}
+        <section class="carrusel">
+          {% for j in [0,1] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[1].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+        {% if cantidad == 3 %}
+        <section class="carrusel">
+          {% for j in [0,1,2] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[1].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[2].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+        {% if cantidad == 4 %}
+        <section class="carrusel">
+          {% for j in [0,1,2,3] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[1].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[2].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if j == 3 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[3].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+        {% if cantidad == 5 %}
+        <section class="carrusel">
+          {% for j in [0,1,2,3,4] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[1].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[2].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if j == 3 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[3].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    {% if j == 4 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[4].ISSN}}.png" alt="Libro5">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+        {% if cantidad > 5 %}
+        <section class="carrusel">
+          {% for j in [0,1,2,3,4,5] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="{{ url_for('informacionLibro', codigo = recomendados[j].ISSN) }}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[0].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[1].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[2].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if j == 3 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[3].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    {% if j == 4 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[4].ISSN}}.png" alt="Libro5">
+                    {% endif %}
+                    {% if j == 5 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[5].ISSN}}.png" alt="Libro6">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+        {% endif %}
+      </div>
+    <footer class="footer">
+        <p>Términos de uso</p>
+        <p>Declaración de privacidad</p>
+        <p>Centro de Ayuda</p>
+    </footer>
+
+</body>
+</html>

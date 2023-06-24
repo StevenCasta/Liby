@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+    <div class="barra_navegacion">
+        <nav>
+          <a href="./">
+            <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+          </a>
+          <form class="barra_busqueda" method="POST" action="{{ url_for('buscar') }}">
+            <input type="text" name="entrada" placeholder="Buscar...">
+            <input type="image" src="{{ url_for('static', filename = './images/lupita.png')}}" class="search_button">
+          </form>
+          {% if logueado == "si" %}
+            <a href="./Carrito">
+              <img style="width: 50px;" src="{{ url_for('static', filename = './images/carrito.png')}}" alt="Carrito de compras">
+            </a>
+          {% endif %}
+          <a href="./Login">
+            <img src="{{ url_for('static', filename = './images/user-icon.png')}}" alt="Acceso a perfil" class="logo2">
+          </a>
+        </nav>
+    </div>
+
+    <h2 class="categories__titles">Lo Mas Vendido</h2>
+
+    <section class="carousel">
+      <div class="carousel__container">
+        {% for val in [0,1,2,3,4] %}
+          <div class="carousel-item">
+                <a href="./VerLibro/{{masvendidos[val].ISSN}}">
+                    {% if val == 0 %}
+                    <img class="carousel-item__img" src="../static/images/portadalibro{{masvendidos[val].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if val == 1 %}
+                    <img class="carousel-item__img" src="../static/images/portadalibro{{masvendidos[val].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if val == 2 %}
+                    <img class="carousel-item__img" src="../static/images/portadalibro{{masvendidos[val].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if val == 3 %}
+                    <img class="carousel-item__img" src="../static/images/portadalibro{{masvendidos[val].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    {% if val == 4 %}
+                    <img class="carousel-item__img" src="../static/images/portadalibro{{masvendidos[val].ISSN}}.png" alt="Libro5">
+                    {% endif %}
+                    <div class="carousel-item__details">
+                      <hr style="color: rgb(209, 159, 8);">  
+                      <p class="carousel-item__details--title">{{masvendidos[val].titulo}}</p>
+                      <p class="carousel-item__details--subtitle">$ {{masvendidos[val].precio}}</p>
+                    </div>
+                </a>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <div class="lomasvendido">
+        <div class="nombreseccion">
+          <p>Lo mas Nuevo</p>
+        </div>
+        <section class="carrusel">
+          {% for j in [0,1,2,3,4,5] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="./VerLibro/{{nuevos[j].ISSN}}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if j == 3 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    {% if j == 4 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro5">
+                    {% endif %}
+                    {% if j == 5 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{nuevos[j].ISSN}}.png" alt="Libro6">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{nuevos[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{nuevos[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+      </div>
+
+      <div class="lomasgustado">
+        <div class="nombreseccion">
+          <p>Te puede interesar</p>
+        </div>
+        <section class="carrusel">
+          {% for j in [0,1,2,3,4,5] %}
+              <div class="contenedorcarrusel" id="item6">
+                <div class="item">
+                  <a href="./VerLibro/{{recomendados[j].ISSN}}">
+                    {% if j == 0 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro1">
+                    {% endif %}
+                    {% if j == 1 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro2">
+                    {% endif %}
+                    {% if j == 2 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro3">
+                    {% endif %}
+                    {% if j == 3 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro4">
+                    {% endif %}
+                    {% if j == 4 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro5">
+                    {% endif %}
+                    {% if j == 5 %}
+                    <img class="imagenitem" src="../static/images/portadalibro{{recomendados[j].ISSN}}.png" alt="Libro6">
+                    {% endif %}
+                    <div class="detallesitem">
+                        <div class="accionesitem">
+                        </div>
+                        <p class="tituloitem">{{recomendados[j].titulo}}</p>
+                        <p class="subtituloitem">$ {{recomendados[j].precio}}</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+          {% endfor %}
+        </section>
+      </div>
+    
+
+    <footer class="footer">
+        <a href="/">Términos de uso</a>
+        <a href="/">Declaración de privacidad</a>
+        <a href="/">Centro de Ayuda</a>
+    </footer>
+
+
+</body>
+</html>

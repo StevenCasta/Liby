@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+</head>
+<body>
+    <div class="barra_navegacion">
+        <nav>
+          <a href="./">
+            <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+          </a>
+        </nav>
+    </div>
+    <hr>
+    <section class="login">
+        <section class="login__container">
+            <h2>Iniciar Sesión</h2>
+            <form class="login__container--form" method="POST" action="{{ url_for('login_check') }}">
+                <input class="input" type="text" name="usuario" autocomplete="off" placeholder="Nombre, Usuario, Telefono...">
+                <input class="input" type="password" name="clave" placeholder="Contraseña...">
+                <div class="opciones">
+                    <div>
+                        <input type="submit" value="Iniciar Sesión" class="login__button">
+                    </div>
+                    <div>
+                        <a class="back__button" href="./">Volver</a>
+                    </div>
+                </div>
+                <hr>
+                <a class="back__button" href="./Registrarse">Registrarse</a>
+            </form>
+        </section>
+    </section>
+    <footer class="footer">
+        <a href="/">Términos de uso</a>
+        <a href="/">Declaración de privacidad</a>
+        <a href="/">Centro de Ayuda</a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="./">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="./Logout" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="{{url_for('actualizarPerfil')}}"><br><br>Actualizar Perfil</a></li>
+                    <li><a href="{{url_for('favoritos')}}"><br><br>Favoritos</a></li>
+                    <li><a href="{{url_for('reservas')}}"><br><br>Mis Reservas</a></li>
+                    <li><a href="{{url_for('historial')}}" style="color:#ff9d00;"><br><br>Historial de Compras</a></li>
+                    <li><a href="{{url_for('noticias')}}"><br><br>Suscripción Noticias</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <div>
+                    <h1>Mostrando informacion</h1>
+                </div>
+                {% if reserva.tipo == "reserva" %}
+                <div class="inforeservas">
+                    <div class="update">
+                        <label>ID reserva</label>
+                    </div>
+                    <div class="update">
+                        <label>{{reserva._id}}</label>
+                    </div>
+                    <div class="update">
+                        <label>Articulos Reserva</label>
+                        <div style="display: flex;flex-direction: column ;margin-top: 15px;margin-left: 15px">
+                            {% for articulo in articulos %}
+                            <label>{{articulo.titulo}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="update">
+                        <label>Cantidad Articulos</label>
+                        <div style="display: flex;flex-direction: column ;margin-top: 15px;margin-left: 15px">
+                            {% for c in cantidad %}
+                            <label>{{c}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="update">
+                        <label>Precio total</label>
+                        <div style="display: block;margin-top: 15px;margin-left: 15px">
+                            <label>{{reserva.valortotal}}</label>
+                        </div>
+                    </div>
+                    <div class="update">
+                        <label>Nombre cliente</label>
+                        <div style="display: block;margin-left: 15px">
+                            <label>{{usuario.nombre}} {{usuario.apellido}}</label>
+                        </div>
+                        <label>Usuario</label>
+                        <div style="display: block;margin-left: 15px">
+                            <label>{{usuario.usuario}}</label>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-top: 30px;margin-left: 35%;">
+                    <a href="{{url_for('pagarAhora2',id = reserva._id,total = reserva.valortotal)}}" class="back__button2">Completar Pago</a>
+                </div>
+                {% endif %}
+                {% if reserva.tipo == "pago" %}
+                <div class="inforeservas">
+                    <div class="update">
+                        <label>ID Pago</label>
+                    </div>
+                    <div class="update">
+                        <label>{{reserva._id}}</label>
+                    </div>
+                    <div class="update">
+                        <label>Articulos Pagados</label>
+                        <div style="display: flex;flex-direction: column ;margin-top: 15px;margin-left: 15px">
+                            {% for articulo in articulos %}
+                            <label>{{articulo.titulo}}</label>
+                            {% endfor %}
+                        </div>
+                        
+                    </div>
+                    <div class="update">
+                        <label>Cantidad Articulos</label>
+                        <div style="display: flex;flex-direction: column ;margin-top: 15px;margin-left: 15px">
+                            {% for c in cantidad %}
+                            <label>{{c}}</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="update">
+                        <label>Precio total</label>
+                        <div style="display: block;margin-top: 15px;margin-left: 15px">
+                            <label>{{reserva.valortotal}}</label>
+                        </div>
+                    </div>
+                    <div class="update">
+                        <label>Nombre cliente</label>
+                        <div style="display: block;margin-left: 15px">
+                            <label>{{usuario.nombre}} {{usuario.apellido}}</label>
+                        </div>
+                        <label>Usuario</label>
+                        <div style="display: block;margin-left: 15px">
+                            <label>{{usuario.usuario}}</label>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </section>
+        </div>
+        
+        
+</html>

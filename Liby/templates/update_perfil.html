@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="./">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="./Logout" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="#" style="color:#ff9d00;"><br><br>Actualizar Perfil</a></li>
+                    <li><a href="./Favoritos"><br><br>Favoritos</a></li>
+                    <li><a href="./Reservas"><br><br>Mis Reservas</a></li>
+                    <li><a href="./Historial"><br><br>Historial de Compras</a></li>
+                    <li><a href="./Noticias"><br><br>Suscripción Noticias</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <div>
+                    <h1>Bienvenido</h1>
+                </div>
+                <div>
+                    <form class="update_data--form" method="POST" action="{{ url_for('update_check') }}">
+                        <div class="update">
+                            <input type="hidden" name="identificador" value="{{usuario._id}}">
+                        </div>
+                        <div class="update">
+                            <label for="nombre">Nombres del usuario</label>
+                            <input class="input2" type="text" id="name" name="nombre" value="{{usuario.nombre}}" placeholder="Nombre usuario ...">
+                        </div>
+                        <div class="update">
+                            <label for="apellido">Apellidos del usuario</label>
+                            <input class="input2" type="text" id="lastname" name="apellido" value="{{usuario.apellido}}" placeholder="Apellidos ...">
+                        </div>
+                        <div class="update">
+                            <label for="nacimiento">Fecha de Nacimiento</label>
+                            <input class="input2" type="text" id="bornday" name="nacimiento" value="{{usuario.nacimiento}}">
+                        </div>
+                        <div class="update">
+                            <label for="correo">Correo electronico</label>
+                            <input class="input2" type="text" id="email" name="correo" value="{{usuario.correo}}" placeholder="Correo Electronico...">
+                        </div>
+                        <div class="update">
+                            <label for="clave">Usuario</label>
+                            <input class="input2" type="text" id="pass" name="usuarioso" value="{{usuario.usuario}}" placeholder="Contraseña...">
+                        </div>
+                        <div class="update">
+                            <label for="clave">Contraseña</label>
+                        </div>
+                        <div class="update" style="display: flex;flex-direction: row;">
+                            <input class="input2" type="password" id="pass" name="clave" value="{{usuario.clave}}" placeholder="Contraseña..." readonly>
+                            <a class="back__button2" href="{{url_for('cambiarClave',id=usuario._id)}}">Modificar Contraseña</a>
+                        </div>
+                        <div class="opciones">
+                            <div>
+                                <input type="submit" value="Actualizar datos" class="update_button">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        
+        
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="./">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="./Logout" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="./Actualizar_perfil"><br><br>Actualizar Perfil</a></li>
+                    <li><a href="./Favoritos"><br><br>Favoritos</a></li>
+                    <li><a href="./Reservas"><br><br>Mis Reservas</a></li>
+                    <li><a href="./Historial"><br><br>Historial de Compras</a></li>
+                    <li><a href="./Noticias"><br><br>Suscripción Noticias</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <div style="margin-top: 180px;margin-left: 150px;">
+                    <h1>Bienvenido al sistema</h1>
+                </div>
+            </section>
+        </div>
+</html>

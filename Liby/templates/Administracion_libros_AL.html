@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="{{ url_for('logout') }}" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="{{ url_for('admonInventario') }}" style="color:#ff9d00;"><br><br>Administrar Inventario</a></li>
+                    <li><a href="{{ url_for('admonRP') }}"><br><br>Administrar Reservas y Pagos</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <div>
+                    <h1>Bienvenido al Sistema</h1>
+                </div>
+                <div>
+                    <form class="update_data--form" method="POST" action="{{ url_for('addbook') }}"><!--Corregir este html-->
+                        <div class="update">
+                            <label for="name">Titulo del libro</label>
+                            <input class="input2" type="text" id="titulo" name="titulo" placeholder="Titulo del libro...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Autor</label>
+                            <input class="input2" type="text" id="autor" name="autor" placeholder="Autor...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Año publicacion</label>
+                            <input class="input2" type="text" id="anopublicacion" name="anopublicacion" placeholder="Año publicacion...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Mes publicacion</label>
+                            <input class="input2" type="text" id="mespublicacion" name="mespublicacion" placeholder="Mes publicacion...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Dia publicacion</label>
+                            <input class="input2" type="text" id="diapublicacion" name="diapublicacion" placeholder="Día publicacion...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Genero</label>
+                            <input class="input2" type="text" id="genero" name="genero" placeholder="Genero del libro...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Cantidad de Paginas</label>
+                            <input class="input2" type="number" id="paginas" name="paginas" placeholder="Paginas del libro...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Editorial</label>
+                            <input class="input2" type="text" id="editorial" name="editorial" placeholder="Editorial...">
+                        </div>
+                        <div class="update">
+                            <label for="name">ISSN</label>
+                            <input class="input2" type="text" id="issn" name="issn" placeholder="ISSN...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Idioma</label>
+                            <input class="input2" type="text" id="idioma" name="idioma" placeholder="Idioma...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Cantidad</label>
+                            <input class="input2" type="number" id="cantidad" name="cantidad" placeholder="Cantidad...">
+                        </div>
+                        <div class="update">
+                            <label for="name">Precio</label>
+                            <input class="input2" type="number" id="precio" name="precio" placeholder="Precio del libro...">
+                        </div>
+                        <div class="input3">
+                            <input style="margin-top: 15px;text-align: center;" type="file" id="avatar" name="portada" accept="image/png, image/jpeg, image/jpg" required>
+                        </div>
+                        <div class="opciones">
+                            <div>
+                                <input type="submit" value="Guardar Libro" class="update_button">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        
+</html>

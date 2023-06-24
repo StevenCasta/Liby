@@ -1,0 +1,103 @@
+_______________________________________COLECCION LIBROS EN BD LIBY_____________________________________________________
+
+json = {"titulo": "",
+          "autor": "",
+          "imagen": "",
+          "anopublicacion": "",
+          "mespublicacion": "",
+          "diapublicacion": "",
+          "genero": "",
+          "paginas": "",
+          "editorial": "",
+          "ISSN": "",
+          "idioma": "",
+          "estado": "",               cuando se agrega el libro esto se determina internamente
+          "disponibilidad": "",       cuando se agrega el libro esto se determina internamente
+          "cantidad": "",
+          "precio": ""
+          }
+
+generos registrados:
+{
+"ficcion literaria", "misterio", "emprendimiento","juvenil","educacion","literatura","salud","autoayuda",
+}
+
+editoriales registradas:
+[
+"Seix Barrel","Debolsillo","Planeta","Ediciones B","Aguilar","Semana","Conecta","Penguin Random House","Banda Propia","Harpercollins Mexico",
+"Diana", "Promolibro","Anagrama","Alfaguara","Alquimia Ediciones","Literatura Random House","Montena","Nova Casa"
+]
+__________________________________________________________________________________
+______________________________________COLECCION USUARIOS PARA BD LIBY_____________________________________________________
+
+json = {"nombre": "",
+        "apellido": "",
+        "nacimiento": date,
+        "correo": "",
+        "usuario": "",
+        "clave": "",
+        "documento": "",
+        "tipodocumento": "",
+        "admin": numero,    (0 para no, 1 para si)
+        "suscripcion": numero(0 para no, 1 para si)
+      }
+__________________________________________________________________________________________________________________________
+______________________________________COLECCION PAGOS PARA BD LIBY_____________________________________________________
+
+jsonson = {"diar": "12",
+          "mesr": "Enero",
+          "anor": "2021",
+          "diap": "12",
+          "mesp": "Enero",
+          "anop": "2021",
+          "articulos": [(ObjectId('6290408b311378e964093e2c'),3),(ObjectId('629044b192f03ac18a98b9af'),1),(ObjectId('629045e87ee1e11ef45366ce'),1)],
+          "valortotal": 303000,
+          "usuario": ObjectId('629433727ac9e1ac5e886114'),
+          "tipo": "pago"
+        }
+__________________________________________________________________________________________________________________________
+______________________________________COLECCION RESERVAS PARA BD LIBY_____________________________________________________
+
+jsonson = {"diar": "12",
+          "mesr": "Enero",
+          "anor": "2021",
+          "articulos": [(ObjectId('6290408b311378e964093e2c'),3),(ObjectId('629044b192f03ac18a98b9af'),1),(ObjectId('629045e87ee1e11ef45366ce'),1)],
+          "valortotal": 303000,
+          "usuario": ObjectId('629433727ac9e1ac5e886114'),
+          "tipo": "reserva"
+        }
+__________________________________________________________________________________________________________________________
+______________________________________COLECCION FAVORITOS PARA BD LIBY_____________________________________________________
+
+json = {"articulos": ObjectID(libro),
+        "usuario": ObjectID(usuario)
+      }
+__________________________________________________________________________________________________________________________
+___________________________________FUNCION MAIN PARA CONEXION_MONGO.PY_________________________________
+if __name__== '__main__':
+#________________________________SECCION PARA GUARDAR UNA IMAGEN CONSULTADA
+    BaseDatos = Conexion('libreria')
+    imagenstring = ImagenBase64()#creacion de la clase para convertir imagenes
+    #consulta = BaseDatos.buscarPrimero('libros')#con esta consulta obtenenmos el primero de la lista
+    #imagenstring.guardarImg('./static/PORTADAS/temp1.png',consulta['imagen'])
+#________________________________________________________________________________
+    cadena = imagenstring.imagenString('./PORTADAS/ZONA_CIEGA.jpg')
+    #las fechas se manejan asi: aaaa-mm-dd, se ingresan con un input de tipo date
+    jsonson = {"titulo": "Zona Ciega",
+            "autor": "Lina Meruane",
+            "imagen": cadena,
+            "anopublicacion": "2021",
+            "mespublicacion": "Mayo",
+            "diapublicacion": "28",
+            "genero": "literatura",
+            "paginas": 148,
+            "editorial": "Literatura Random House",
+            "ISSN": "9789566045441",
+            "idioma": "Espanol",
+            "estado": "Nuevo",
+            "disponibilidad": "disponible",
+            "cantidad": 300,
+            "precio": 87000
+            }
+    consulta = BaseDatos.insertarDocumento(jsonson,'libros')#primer campo, el json a insertar, segundo la coleccion donde se inserta
+    #print(res['nombre'])#de esta forma se obtiene la informacion de las consultas

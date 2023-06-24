@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@200;400;800&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{{url_for('static',filename='./images/favicon.ico')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='./css/estilos.css')}}">
+    <title>{{titulo_pagina}}</title>
+    </head>
+    <body>
+        <div class="barra_navegacion">
+            <nav>
+              <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename = './images/LiBy-logos_white.png')}}" alt="Logo de Liby" class="logo">
+              </a>
+              <a href="{{ url_for('logout') }}" class="desconectarse">Cerrar Sesion</a>
+            </nav>
+        </div>
+        <hr>
+        <div class="operaciones">
+            <section class="user_options">
+                <div>
+                    <li><a href="{{ url_for('admonInventario') }}" style="color:#ff9d00;"><br><br>Administrar Inventario</a></li>
+                    <li><a href="{{ url_for('admonRP') }}"><br><br>Administrar Reservas y Pagos</a></li>
+                </div>
+            </section>
+            <section class="window">
+                <div class="admon_options">
+                    <nav>
+                        <form class="barra_busqueda2" method="POST" action="{{ url_for('buscar2') }}">
+                            <input type="text" name="entrada" placeholder="Buscar...">
+                            <input type="image" src="{{ url_for('static', filename = './images/lupita.png')}}" class="search_button2">
+                        </form>
+                    </nav>
+                </div>
+                <hr>
+                <div>
+                    <section class="carrusel2">
+                      {% for e in libros %}
+                          <div class="contenedorcarrusel2" id="libro">
+                            <div class="item2">
+                              <a href="{{ url_for('editarInformacionLibro', codigo = e.ISSN) }}">
+                                <img class="imagenitem2" src="../static/images/portadalibro{{e.ISSN}}.png" alt="Portada {{e.titulo}}">
+                                <div class="detallesitem2">
+                                    <div class="accionesitem2">
+                                    </div>
+                                    <p class="tituloitem2">{{e.titulo}}</p>
+                                    <p class="subtituloitem2">$ {{e.precio}}</p>
+                                </div>
+                              </a>
+                            </div>
+                          </div>
+                      {% endfor %}
+                    </section>
+                </div>
+            </section>
+        </div>
+        
+</html>
